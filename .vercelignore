@@ -1,9 +1,0 @@
-DATA/
-.venv/
-*.parquet
-*.csv
-*.tif
-*.shp
-*.pkl
-*.ipynb_checkpoints/
-
