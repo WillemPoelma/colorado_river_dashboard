@@ -8,7 +8,10 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 # --- Geospatial ---
-import geopandas as gpd
+
+import requests
+import json
+
 
 
 # BASIN_CONFIG = {
@@ -542,6 +545,101 @@ def sector_water_use_shortage_plot(year, basin):
 ##################################################################################################################################################################################################################################################################################################
 
 
+# def plot_drought_map(year, basin):
+#     if basin not in BASIN_CONFIG:
+#         raise ValueError(f"Basin '{basin}' not recognized.")
+
+#     config = BASIN_CONFIG[basin]
+
+#     # --- Load drought data ---
+#     drought_df = pd.read_parquet(config['drought_path'])
+#     drought_df["year"] = pd.to_numeric(drought_df["year"], errors="coerce")
+#     drought_df["shortage_cu"] = pd.to_numeric(drought_df["shortage_cu"], errors="coerce").fillna(0)
+#     drought_df["structure_id"] = drought_df["structure_id"].astype(str).str.strip()
+#     drought_df["structure_id_clean"] = drought_df["structure_id"].str.replace(r'_[A-Z]+$', '', regex=True)
+
+#     # --- Load structure-to-district mapping ---
+#     sdis_df = pd.read_csv(config['sdis_path'])
+#     sdis_df.columns = sdis_df.columns.str.strip().str.lower()
+
+#     # Detect structure ID column
+#     wdid_col = next((col for col in sdis_df.columns if col in ['wdid', 'sw_wdid1', 'structure_id', 'id']), None)
+#     if wdid_col is None:
+#         raise ValueError(f"No structure ID column found in {config['sdis_path']}. Available columns: {sdis_df.columns.tolist()}")
+
+#     sdis_df[wdid_col] = sdis_df[wdid_col].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
+#     sdis_df["wdid_clean"] = sdis_df[wdid_col].str.replace(r'_[A-Z]+$', '', regex=True)
+
+#     # Detect district column in sdis_df
+#     dist_col_sdis = next((col for col in sdis_df.columns if col in ['dist', 'district', 'district_id']), None)
+#     if dist_col_sdis is None:
+#         raise ValueError(f"No district column found in {config['sdis_path']}. Available columns: {sdis_df.columns.tolist()}")
+
+#     sdis_df[dist_col_sdis] = sdis_df[dist_col_sdis].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
+
+#     # --- Merge drought data with district info ---
+#     drought_df = drought_df.merge(
+#         sdis_df[["wdid_clean", dist_col_sdis]],
+#         left_on="structure_id_clean",
+#         right_on="wdid_clean",
+#         how="left"
+#     )
+
+#     drought_df[dist_col_sdis] = drought_df[dist_col_sdis].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
+
+#     # --- Filter for selected year ---
+#     drought_year = drought_df[drought_df["year"] == int(year)].copy()
+#     if drought_year.empty:
+#         return go.Figure().update_layout(title_text=f"No drought data available for {basin} in {year}")
+
+#     # --- Aggregate shortage by district ---
+#     district_shortage = (
+#         drought_year.groupby(dist_col_sdis, observed=False)["shortage_cu"]
+#         .sum()
+#         .reset_index()
+#     )
+
+#     # --- Load district boundaries ---
+#     gdf = gpd.read_file(config['districts_path']).to_crs(epsg=4326)
+#     gdf.columns = gdf.columns.str.strip().str.lower()
+
+#     # Detect district column in gdf
+#     dist_col_gdf = next((col for col in gdf.columns if col in ['dist', 'district', 'district_id']), None)
+#     if dist_col_gdf is None:
+#         raise ValueError(f"No district column found in {config['districts_path']}. Available columns: {gdf.columns.tolist()}")
+
+#     gdf[dist_col_gdf] = gdf[dist_col_gdf].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
+
+#     # --- Merge with spatial data ---
+#     map_df = gdf.merge(district_shortage, left_on=dist_col_gdf, right_on=dist_col_sdis, how="left")
+#     map_df["shortage_cu"] = map_df["shortage_cu"].fillna(0)
+
+#     # --- Plot the map ---
+#     fig = px.choropleth_mapbox(
+#         map_df,
+#         geojson=map_df.__geo_interface__,
+#         locations=map_df[dist_col_gdf],
+#         featureidkey=f"properties.{dist_col_gdf}",
+#         color="shortage_cu",
+#         color_continuous_scale="YlOrRd",
+#         mapbox_style="carto-positron",
+#         zoom=7,
+#         center=config['map_center'],
+#         opacity=0.7,
+#         hover_name=dist_col_gdf,
+#         hover_data={"shortage_cu": True}
+#     )
+
+#     fig.update_layout(
+#         title=f"District-Level Drought Map in {basin} Basin ({year})",
+#         margin={"r": 0, "t": 30, "l": 0, "b": 0},
+#         font=dict(family="Arial", size=12)
+#     )
+
+#     return fig
+
+
+
 def plot_drought_map(year, basin):
     if basin not in BASIN_CONFIG:
         raise ValueError(f"Basin '{basin}' not recognized.")
@@ -596,34 +694,23 @@ def plot_drought_map(year, basin):
         .reset_index()
     )
 
-    # --- Load district boundaries ---
-    gdf = gpd.read_file(config['districts_path']).to_crs(epsg=4326)
-    gdf.columns = gdf.columns.str.strip().str.lower()
-
-    # Detect district column in gdf
-    dist_col_gdf = next((col for col in gdf.columns if col in ['dist', 'district', 'district_id']), None)
-    if dist_col_gdf is None:
-        raise ValueError(f"No district column found in {config['districts_path']}. Available columns: {gdf.columns.tolist()}")
-
-    gdf[dist_col_gdf] = gdf[dist_col_gdf].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
-
-    # --- Merge with spatial data ---
-    map_df = gdf.merge(district_shortage, left_on=dist_col_gdf, right_on=dist_col_sdis, how="left")
-    map_df["shortage_cu"] = map_df["shortage_cu"].fillna(0)
+    # --- Load district boundaries (GeoJSON) ---
+    resp = requests.get(config['districts_path'])
+    geojson_data = resp.json()
 
     # --- Plot the map ---
     fig = px.choropleth_mapbox(
-        map_df,
-        geojson=map_df.__geo_interface__,
-        locations=map_df[dist_col_gdf],
-        featureidkey=f"properties.{dist_col_gdf}",
+        district_shortage,
+        geojson=geojson_data,
+        locations=dist_col_sdis,
+        featureidkey=f"properties.{dist_col_sdis}",
         color="shortage_cu",
         color_continuous_scale="YlOrRd",
         mapbox_style="carto-positron",
         zoom=7,
         center=config['map_center'],
         opacity=0.7,
-        hover_name=dist_col_gdf,
+        hover_name=dist_col_sdis,
         hover_data={"shortage_cu": True}
     )
 
@@ -634,6 +721,8 @@ def plot_drought_map(year, basin):
     )
 
     return fig
+
+
 
 ####################################################################################################################################################################################################################################################################################################
 ##################################################################################################################################################################################################################################################################################################
