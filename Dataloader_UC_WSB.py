@@ -11,81 +11,159 @@ import plotly.express as px
 import geopandas as gpd
 
 
+# BASIN_CONFIG = {
+#     'Gunnison': {
+#         'streamflow_col': 'Gunnison',
+#         'outflow_id': 'gunn_end',
+#         'parquet_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
+#         'structure_files': {
+#             'industry': 'ind_gm.txt',
+#             'irrigation': 'irrigation_gm.txt',
+#             'municipality': 'mun_gm.txt'
+#         },
+#         'drought_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
+#         'sdis_path': 'DATA/sdis.csv',
+#         'districts_path': 'DATA/div4_districts.geojson',
+#         'map_center': {"lat": 38.5, "lon": -107.8},
+#         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+#     },
+#     'White': {
+#         'streamflow_col': 'White',
+#         'outflow_id': 'white_end',
+#         'parquet_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
+#         'structure_files': {
+#             'industry': 'ind_wm.txt',
+#             'irrigation': 'irrigation_wm.txt',
+#             'municipality': 'mun_wm.txt'
+#         },
+#         'drought_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
+#         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
+#         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+#         'map_center': {"lat": 39.9, "lon": -107.5},
+#         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+#     },
+#     'Yampa': {
+#         'streamflow_col': 'Yampa',
+#         'outflow_id': 'yampa_end',
+#         'parquet_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
+#         'structure_files': {
+#             'industry': 'ind_ym.txt',
+#             'irrigation': 'irrigation_ym.txt',
+#             'municipality': 'mun_ym.txt'
+#         },
+#         'drought_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
+#         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
+#         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+#         'map_center': {"lat": 40.0, "lon": -106.9},
+#         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+#     },
+#     'Upper Colorado': {
+#         'streamflow_col': 'Upper_Colorado', 
+#         'outflow_id': 'cm_end',
+#         'parquet_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
+#         'structure_files': {
+#             'industry': 'ind_cm.txt',
+#             'irrigation': 'irrigation_cm.txt',
+#             'municipality': 'mun_cm.txt'
+#         },
+#         'drought_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
+#         'sdis_path': 'DATA/boundaries_colorado/cm_sdis.csv',
+#         'districts_path': 'DATA/boundaries_colorado/Div5_districts_cm.geojson',
+#         'map_center': {"lat": 39.5, "lon": -106.8},
+#         'reservoir_path': 'DATA/EXCEL/LG_xre_data_hist.csv'
+#     },
+#     'San Juan & Dolores': {
+#         'streamflow_col': 'SanJuan_Dolores',  
+#         'outflow_id': 'sj_end',
+#         'parquet_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
+#         'structure_files': {
+#             'industry': 'ind_sj.txt',
+#             'irrigation': 'irrigation_sj.txt',
+#             'municipality': 'mun_sj.txt'
+#         },
+#         'drought_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
+#         'sdis_path': 'DATA/boundaries_sanjuan/sj_sdis.csv',
+#         'districts_path': 'DATA/boundaries_sanjuan/div7_districts_sj.geojson',
+#         'map_center': {"lat": 37.5, "lon": -108.5},
+#         'reservoir_path': 'DATA/EXCEL/MR_xre_data_hist.csv'
+#     }
+# }
+
 BASIN_CONFIG = {
     'Gunnison': {
         'streamflow_col': 'Gunnison',
         'outflow_id': 'gunn_end',
-        'parquet_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
+        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
         'structure_files': {
-            'industry': 'ind_gm.txt',
-            'irrigation': 'irrigation_gm.txt',
-            'municipality': 'mun_gm.txt'
+            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_gm.txt',
+            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_gm.txt',
+            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_gm.txt'
         },
-        'drought_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
-        'sdis_path': 'DATA/sdis.csv',
-        'districts_path': 'DATA/div4_districts.geojson',
+        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
+        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/sdis.csv',
+        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/div4_districts.geojson',
         'map_center': {"lat": 38.5, "lon": -107.8},
-        'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
     },
     'White': {
         'streamflow_col': 'White',
         'outflow_id': 'white_end',
-        'parquet_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
+        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
         'structure_files': {
-            'industry': 'ind_wm.txt',
-            'irrigation': 'irrigation_wm.txt',
-            'municipality': 'mun_wm.txt'
+            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_wm.txt',
+            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_wm.txt',
+            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_wm.txt'
         },
-        'drought_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
-        'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
-        'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
+        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
+        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
         'map_center': {"lat": 39.9, "lon": -107.5},
-        'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
     },
     'Yampa': {
         'streamflow_col': 'Yampa',
         'outflow_id': 'yampa_end',
-        'parquet_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
+        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
         'structure_files': {
-            'industry': 'ind_ym.txt',
-            'irrigation': 'irrigation_ym.txt',
-            'municipality': 'mun_ym.txt'
+            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_ym.txt',
+            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_ym.txt',
+            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_ym.txt'
         },
-        'drought_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
-        'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
-        'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
+        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
+        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
         'map_center': {"lat": 40.0, "lon": -106.9},
-        'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
     },
     'Upper Colorado': {
-        'streamflow_col': 'Upper_Colorado', 
+        'streamflow_col': 'Upper_Colorado',
         'outflow_id': 'cm_end',
-        'parquet_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
+        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
         'structure_files': {
-            'industry': 'ind_cm.txt',
-            'irrigation': 'irrigation_cm.txt',
-            'municipality': 'mun_cm.txt'
+            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_cm.txt',
+            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_cm.txt',
+            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_cm.txt'
         },
-        'drought_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
-        'sdis_path': 'DATA/boundaries_colorado/cm_sdis.csv',
-        'districts_path': 'DATA/boundaries_colorado/Div5_districts_cm.geojson',
+        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
+        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/cm_sdis.csv',
+        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/Div5_districts_cm.geojson',
         'map_center': {"lat": 39.5, "lon": -106.8},
-        'reservoir_path': 'DATA/EXCEL/LG_xre_data_hist.csv'
+        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/LG_xre_data_hist.csv'
     },
     'San Juan & Dolores': {
-        'streamflow_col': 'SanJuan_Dolores',  
+        'streamflow_col': 'SanJuan_Dolores',
         'outflow_id': 'sj_end',
-        'parquet_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
+        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
         'structure_files': {
-            'industry': 'ind_sj.txt',
-            'irrigation': 'irrigation_sj.txt',
-            'municipality': 'mun_sj.txt'
+            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_sj.txt',
+            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_sj.txt',
+            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_sj.txt'
         },
-        'drought_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
-        'sdis_path': 'DATA/boundaries_sanjuan/sj_sdis.csv',
-        'districts_path': 'DATA/boundaries_sanjuan/div7_districts_sj.geojson',
+        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
+        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/sj_sdis.csv',
+        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/div7_districts_sj.geojson',
         'map_center': {"lat": 37.5, "lon": -108.5},
-        'reservoir_path': 'DATA/EXCEL/MR_xre_data_hist.csv'
+        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/MR_xre_data_hist.csv'
     }
 }
 
@@ -94,7 +172,9 @@ BASIN_CONFIG = {
 ##################################################################################################################################################################################################################################################################################################
 
 # Path to the full streamflow dataset
-STREAMFLOW_PATH = 'DATA/EXCEL/HistoricalData_all_basins.csv'
+# STREAMFLOW_PATH = 'DATA/EXCEL/HistoricalData_all_basins.csv'
+
+STREAMFLOW_PATH = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/HistoricalData_all_basins.csv'
 
 def streamflow(basin: str, path: str = STREAMFLOW_PATH) -> pd.DataFrame:
     """Loads and processes streamflow data for the selected basin."""
@@ -195,8 +275,11 @@ def streamflow_fig(selected_year: int = None, basin: str = "Gunnison") -> go.Fig
 
 
 # --- File paths ---
-streamflow_path = 'DATA/EXCEL/HistoricalData_all_basins.csv'
-demand_base_path = 'DATA/Demand/Demand-IDs'
+# streamflow_path = 'DATA/EXCEL/HistoricalData_all_basins.csv'
+# demand_base_path = 'DATA/Demand/Demand-IDs'
+
+streamflow_path = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/HistoricalData_all_basins.csv'
+demand_base_path = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/Demand/Demand-IDs'
 
 # --- Data loaders ---
 def streamflow(basin, path=streamflow_path):
