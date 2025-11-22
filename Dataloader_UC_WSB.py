@@ -370,30 +370,116 @@ def make_sankey_fig(year, basin):
 ####################################################################################################################################################################################################################################################################################################
 ##################################################################################################################################################################################################################################################################################################
 
-def sector_water_use_shortage_plot(year, basin, demand_base_path='DATA/Demand/Demand-IDs'):
+# def sector_water_use_shortage_plot(year, basin, demand_base_path='DATA/Demand/Demand-IDs'):
+#     if basin not in BASIN_CONFIG:
+#         raise ValueError(f"Basin '{basin}' not recognized.")
+
+#     # Load StateMod data
+#     parquet_path = BASIN_CONFIG[basin]['parquet_path']
+#     cols = ['structure_id', 'year', 'month', 'shortage_cu', 'demand_cu']
+#     df_raw = pd.read_parquet(parquet_path, columns=cols)
+#     df_raw['structure_id'] = df_raw['structure_id'].astype(str)
+#     df_raw['year'] = df_raw['year'].astype(int)
+
+#     # Filter by selected year
+#     df = df_raw[(df_raw['year'] == int(year)) & (df_raw['month'] == 'TOT')].copy()
+#     if df.empty:
+#         df = df_raw[df_raw['year'] == int(year)].copy()
+
+#     # Load sector structure ID lists
+#     files = BASIN_CONFIG[basin]['structure_files']
+#     ind_ids = pd.read_csv(f"{demand_base_path}/{files['industry']}", header=None, sep=r'\s+')[0].astype(str)
+#     irr_ids = pd.read_csv(f"{demand_base_path}/{files['irrigation']}", header=None, sep=r'\s+')[0].astype(str)
+#     mun_ids = pd.read_csv(f"{demand_base_path}/{files['municipality']}", header=None, sep=r'\s+')[0].astype(str)
+
+#     # Detect suffixes in filtered data
+#     all_ids = set(df['structure_id'].dropna())
+#     def detect_suffixes(raw_list, fallback):
+#         matched = []
+#         for raw in raw_list:
+#             candidates = [sid for sid in all_ids if sid.startswith(raw)]
+#             matched.append(candidates[0] if candidates else raw + fallback)
+#         return set(matched)
+
+#     ind_set = detect_suffixes(ind_ids, '_D')
+#     irr_set = detect_suffixes(irr_ids, '_I')
+#     mun_set = detect_suffixes(mun_ids, '_M')
+
+#     # Clean numeric fields
+#     df['shortage_cu'] = pd.to_numeric(df['shortage_cu'], errors='coerce')
+#     df['demand_cu'] = pd.to_numeric(df['demand_cu'], errors='coerce')
+
+#     # Sector filtering
+#     ind_df = df[df['structure_id'].isin(ind_set)]
+#     irr_df = df[df['structure_id'].isin(irr_set)]
+#     mun_df = df[df['structure_id'].isin(mun_set)]
+
+#     # Compute relative shortage values
+#     def compute_ratio(df_sector):
+#         total_shortage = df_sector['shortage_cu'].sum(skipna=True)
+#         total_demand = df_sector['demand_cu'].sum(skipna=True)
+#         return total_shortage / total_demand if total_demand > 0 else 0
+
+#     shortage_ratios = [
+#         compute_ratio(ind_df),
+#         compute_ratio(irr_df),
+#         compute_ratio(mun_df)
+#     ]
+
+#     # Build plot
+#     labels = ['Industry', 'Irrigation', 'Municipality']
+#     fig = go.Figure()
+
+#     fig.add_trace(go.Bar(
+#         x=labels,
+#         y=shortage_ratios,
+#         name='Shortage Fraction',
+#         marker_color='indianred',
+#         text=[f"{v:.2%}" if v > 0 else "" for v in shortage_ratios],
+#         textposition='auto'
+#     ))
+
+#     fig.update_layout(
+#         title=f"Sectoral Shortage Fraction in {basin} Basin ({year})",
+#         yaxis_title='Shortage / Demand [%]',
+#         template='plotly_white',
+#         height=400,
+#         width=700,
+#         margin=dict(l=30, r=30, t=50, b=40),
+#         legend=dict(orientation='h', y=1.05, x=0.5, xanchor='center'),
+#         font=dict(family="Arial", size=12)
+#     )
+
+
+#     return fig
+
+
+
+def sector_water_use_shortage_plot(year, basin):
     if basin not in BASIN_CONFIG:
         raise ValueError(f"Basin '{basin}' not recognized.")
 
-    # Load StateMod data
+    # --- Load StateMod data ---
     parquet_path = BASIN_CONFIG[basin]['parquet_path']
     cols = ['structure_id', 'year', 'month', 'shortage_cu', 'demand_cu']
     df_raw = pd.read_parquet(parquet_path, columns=cols)
     df_raw['structure_id'] = df_raw['structure_id'].astype(str)
     df_raw['year'] = df_raw['year'].astype(int)
 
-    # Filter by selected year
+    # --- Filter by selected year ---
     df = df_raw[(df_raw['year'] == int(year)) & (df_raw['month'] == 'TOT')].copy()
     if df.empty:
         df = df_raw[df_raw['year'] == int(year)].copy()
 
-    # Load sector structure ID lists
+    # --- Load sector structure ID lists directly from BASIN_CONFIG URLs ---
     files = BASIN_CONFIG[basin]['structure_files']
-    ind_ids = pd.read_csv(f"{demand_base_path}/{files['industry']}", header=None, sep=r'\s+')[0].astype(str)
-    irr_ids = pd.read_csv(f"{demand_base_path}/{files['irrigation']}", header=None, sep=r'\s+')[0].astype(str)
-    mun_ids = pd.read_csv(f"{demand_base_path}/{files['municipality']}", header=None, sep=r'\s+')[0].astype(str)
+    ind_ids = pd.read_csv(files['industry'], header=None, sep=r'\s+')[0].astype(str)
+    irr_ids = pd.read_csv(files['irrigation'], header=None, sep=r'\s+')[0].astype(str)
+    mun_ids = pd.read_csv(files['municipality'], header=None, sep=r'\s+')[0].astype(str)
 
-    # Detect suffixes in filtered data
+    # --- Detect suffixes in filtered data ---
     all_ids = set(df['structure_id'].dropna())
+
     def detect_suffixes(raw_list, fallback):
         matched = []
         for raw in raw_list:
@@ -405,16 +491,16 @@ def sector_water_use_shortage_plot(year, basin, demand_base_path='DATA/Demand/De
     irr_set = detect_suffixes(irr_ids, '_I')
     mun_set = detect_suffixes(mun_ids, '_M')
 
-    # Clean numeric fields
+    # --- Clean numeric fields ---
     df['shortage_cu'] = pd.to_numeric(df['shortage_cu'], errors='coerce')
     df['demand_cu'] = pd.to_numeric(df['demand_cu'], errors='coerce')
 
-    # Sector filtering
+    # --- Sector filtering ---
     ind_df = df[df['structure_id'].isin(ind_set)]
     irr_df = df[df['structure_id'].isin(irr_set)]
     mun_df = df[df['structure_id'].isin(mun_set)]
 
-    # Compute relative shortage values
+    # --- Compute relative shortage values ---
     def compute_ratio(df_sector):
         total_shortage = df_sector['shortage_cu'].sum(skipna=True)
         total_demand = df_sector['demand_cu'].sum(skipna=True)
@@ -426,7 +512,7 @@ def sector_water_use_shortage_plot(year, basin, demand_base_path='DATA/Demand/De
         compute_ratio(mun_df)
     ]
 
-    # Build plot
+    # --- Build plot ---
     labels = ['Industry', 'Irrigation', 'Municipality']
     fig = go.Figure()
 
@@ -451,7 +537,6 @@ def sector_water_use_shortage_plot(year, basin, demand_base_path='DATA/Demand/De
     )
 
     return fig
-
 
 ####################################################################################################################################################################################################################################################################################################
 ##################################################################################################################################################################################################################################################################################################
