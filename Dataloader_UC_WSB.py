@@ -1,3 +1,178 @@
+# # --- Core packages ---
+# import os
+# import pandas as pd
+# import numpy as np
+
+# # --- Visualization ---
+# import plotly.graph_objects as go
+# import plotly.express as px
+
+# # --- Geospatial ---
+
+# import requests
+# import json
+
+
+
+# # BASIN_CONFIG = {
+# #     'Gunnison': {
+# #         'streamflow_col': 'Gunnison',
+# #         'outflow_id': 'gunn_end',
+# #         'parquet_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
+# #         'structure_files': {
+# #             'industry': 'ind_gm.txt',
+# #             'irrigation': 'irrigation_gm.txt',
+# #             'municipality': 'mun_gm.txt'
+# #         },
+# #         'drought_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
+# #         'sdis_path': 'DATA/sdis.csv',
+# #         'districts_path': 'DATA/div4_districts.geojson',
+# #         'map_center': {"lat": 38.5, "lon": -107.8},
+# #         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+# #     },
+# #     'White': {
+# #         'streamflow_col': 'White',
+# #         'outflow_id': 'white_end',
+# #         'parquet_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
+# #         'structure_files': {
+# #             'industry': 'ind_wm.txt',
+# #             'irrigation': 'irrigation_wm.txt',
+# #             'municipality': 'mun_wm.txt'
+# #         },
+# #         'drought_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
+# #         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
+# #         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+# #         'map_center': {"lat": 39.9, "lon": -107.5},
+# #         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+# #     },
+# #     'Yampa': {
+# #         'streamflow_col': 'Yampa',
+# #         'outflow_id': 'yampa_end',
+# #         'parquet_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
+# #         'structure_files': {
+# #             'industry': 'ind_ym.txt',
+# #             'irrigation': 'irrigation_ym.txt',
+# #             'municipality': 'mun_ym.txt'
+# #         },
+# #         'drought_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
+# #         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
+# #         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+# #         'map_center': {"lat": 40.0, "lon": -106.9},
+# #         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+# #     },
+# #     'Upper Colorado': {
+# #         'streamflow_col': 'Upper_Colorado', 
+# #         'outflow_id': 'cm_end',
+# #         'parquet_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
+# #         'structure_files': {
+# #             'industry': 'ind_cm.txt',
+# #             'irrigation': 'irrigation_cm.txt',
+# #             'municipality': 'mun_cm.txt'
+# #         },
+# #         'drought_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
+# #         'sdis_path': 'DATA/boundaries_colorado/cm_sdis.csv',
+# #         'districts_path': 'DATA/boundaries_colorado/Div5_districts_cm.geojson',
+# #         'map_center': {"lat": 39.5, "lon": -106.8},
+# #         'reservoir_path': 'DATA/EXCEL/LG_xre_data_hist.csv'
+# #     },
+# #     'San Juan & Dolores': {
+# #         'streamflow_col': 'SanJuan_Dolores',  
+# #         'outflow_id': 'sj_end',
+# #         'parquet_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
+# #         'structure_files': {
+# #             'industry': 'ind_sj.txt',
+# #             'irrigation': 'irrigation_sj.txt',
+# #             'municipality': 'mun_sj.txt'
+# #         },
+# #         'drought_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
+# #         'sdis_path': 'DATA/boundaries_sanjuan/sj_sdis.csv',
+# #         'districts_path': 'DATA/boundaries_sanjuan/div7_districts_sj.geojson',
+# #         'map_center': {"lat": 37.5, "lon": -108.5},
+# #         'reservoir_path': 'DATA/EXCEL/MR_xre_data_hist.csv'
+# #     }
+# # }
+
+# BASIN_CONFIG = {
+#     'Gunnison': {
+#         'streamflow_col': 'Gunnison',
+#         'outflow_id': 'gunn_end',
+#         'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
+#         'structure_files': {
+#             'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_gm.txt',
+#             'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_gm.txt',
+#             'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_gm.txt'
+#         },
+#         'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
+#         'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/sdis.csv',
+#         'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/div4_districts.geojson',
+#         'map_center': {"lat": 38.5, "lon": -107.8},
+#         'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
+#     },
+#     'White': {
+#         'streamflow_col': 'White',
+#         'outflow_id': 'white_end',
+#         'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
+#         'structure_files': {
+#             'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_wm.txt',
+#             'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_wm.txt',
+#             'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_wm.txt'
+#         },
+#         'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
+#         'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
+#         'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+#         'map_center': {"lat": 39.9, "lon": -107.5},
+#         'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
+#     },
+#     'Yampa': {
+#         'streamflow_col': 'Yampa',
+#         'outflow_id': 'yampa_end',
+#         'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
+#         'structure_files': {
+#             'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_ym.txt',
+#             'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_ym.txt',
+#             'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_ym.txt'
+#         },
+#         'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
+#         'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
+#         'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+#         'map_center': {"lat": 40.0, "lon": -106.9},
+#         'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
+#     },
+#     'Upper Colorado': {
+#         'streamflow_col': 'Upper_Colorado',
+#         'outflow_id': 'cm_end',
+#         'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
+#         'structure_files': {
+#             'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_cm.txt',
+#             'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_cm.txt',
+#             'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_cm.txt'
+#         },
+#         'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
+#         'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/cm_sdis.csv',
+#         'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/Div5_districts_cm.geojson',
+#         'map_center': {"lat": 39.5, "lon": -106.8},
+#         'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/LG_xre_data_hist.csv'
+#     },
+#     'San Juan & Dolores': {
+#         'streamflow_col': 'SanJuan_Dolores',
+#         'outflow_id': 'sj_end',
+#         'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
+#         'structure_files': {
+#             'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_sj.txt',
+#             'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_sj.txt',
+#             'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_sj.txt'
+#         },
+#         'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
+#         'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/sj_sdis.csv',
+#         'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/div7_districts_sj.geojson',
+#         'map_center': {"lat": 37.5, "lon": -108.5},
+#         'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/MR_xre_data_hist.csv'
+#     }
+# }
+
+
+
+
 # --- Core packages ---
 import os
 import pandas as pd
@@ -8,176 +183,294 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 # --- Geospatial ---
-
 import requests
 import json
 
+# --- Environment flag ---
+USE_REMOTE = os.environ.get("USE_REMOTE", "false").lower() == "true"
 
-
-# BASIN_CONFIG = {
-#     'Gunnison': {
-#         'streamflow_col': 'Gunnison',
-#         'outflow_id': 'gunn_end',
-#         'parquet_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
-#         'structure_files': {
-#             'industry': 'ind_gm.txt',
-#             'irrigation': 'irrigation_gm.txt',
-#             'municipality': 'mun_gm.txt'
-#         },
-#         'drought_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
-#         'sdis_path': 'DATA/sdis.csv',
-#         'districts_path': 'DATA/div4_districts.geojson',
-#         'map_center': {"lat": 38.5, "lon": -107.8},
-#         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
-#     },
-#     'White': {
-#         'streamflow_col': 'White',
-#         'outflow_id': 'white_end',
-#         'parquet_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
-#         'structure_files': {
-#             'industry': 'ind_wm.txt',
-#             'irrigation': 'irrigation_wm.txt',
-#             'municipality': 'mun_wm.txt'
-#         },
-#         'drought_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
-#         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
-#         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
-#         'map_center': {"lat": 39.9, "lon": -107.5},
-#         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
-#     },
-#     'Yampa': {
-#         'streamflow_col': 'Yampa',
-#         'outflow_id': 'yampa_end',
-#         'parquet_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
-#         'structure_files': {
-#             'industry': 'ind_ym.txt',
-#             'irrigation': 'irrigation_ym.txt',
-#             'municipality': 'mun_ym.txt'
-#         },
-#         'drought_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
-#         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
-#         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
-#         'map_center': {"lat": 40.0, "lon": -106.9},
-#         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
-#     },
-#     'Upper Colorado': {
-#         'streamflow_col': 'Upper_Colorado', 
-#         'outflow_id': 'cm_end',
-#         'parquet_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
-#         'structure_files': {
-#             'industry': 'ind_cm.txt',
-#             'irrigation': 'irrigation_cm.txt',
-#             'municipality': 'mun_cm.txt'
-#         },
-#         'drought_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
-#         'sdis_path': 'DATA/boundaries_colorado/cm_sdis.csv',
-#         'districts_path': 'DATA/boundaries_colorado/Div5_districts_cm.geojson',
-#         'map_center': {"lat": 39.5, "lon": -106.8},
-#         'reservoir_path': 'DATA/EXCEL/LG_xre_data_hist.csv'
-#     },
-#     'San Juan & Dolores': {
-#         'streamflow_col': 'SanJuan_Dolores',  
-#         'outflow_id': 'sj_end',
-#         'parquet_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
-#         'structure_files': {
-#             'industry': 'ind_sj.txt',
-#             'irrigation': 'irrigation_sj.txt',
-#             'municipality': 'mun_sj.txt'
-#         },
-#         'drought_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
-#         'sdis_path': 'DATA/boundaries_sanjuan/sj_sdis.csv',
-#         'districts_path': 'DATA/boundaries_sanjuan/div7_districts_sj.geojson',
-#         'map_center': {"lat": 37.5, "lon": -108.5},
-#         'reservoir_path': 'DATA/EXCEL/MR_xre_data_hist.csv'
-#     }
-# }
-
-BASIN_CONFIG = {
-    'Gunnison': {
-        'streamflow_col': 'Gunnison',
-        'outflow_id': 'gunn_end',
-        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
-        'structure_files': {
-            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_gm.txt',
-            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_gm.txt',
-            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_gm.txt'
+if USE_REMOTE:
+    # --- Remote (GitHub raw URLs) ---
+    BASIN_CONFIG = {
+        'Gunnison': {
+            'streamflow_col': 'Gunnison',
+            'outflow_id': 'gunn_end',
+            'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
+            'structure_files': {
+                'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_gm.txt',
+                'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_gm.txt',
+                'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_gm.txt'
+            },
+            'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
+            'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/sdis.csv',
+            'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/div4_districts.geojson',
+            'map_center': {"lat": 38.5, "lon": -107.8},
+            'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
         },
-        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/gm/gm2015B.parquet',
-        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/sdis.csv',
-        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/div4_districts.geojson',
-        'map_center': {"lat": 38.5, "lon": -107.8},
-        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
-    },
-    'White': {
-        'streamflow_col': 'White',
-        'outflow_id': 'white_end',
-        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
-        'structure_files': {
-            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_wm.txt',
-            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_wm.txt',
-            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_wm.txt'
+        'White': {
+            'streamflow_col': 'White',
+            'outflow_id': 'white_end',
+            'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
+            'structure_files': {
+                'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_wm.txt',
+                'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_wm.txt',
+                'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_wm.txt'
+            },
+            'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
+            'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
+            'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+            'map_center': {"lat": 39.9, "lon": -107.5},
+            'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
         },
-        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/wm/wm2015B.parquet',
-        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
-        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
-        'map_center': {"lat": 39.9, "lon": -107.5},
-        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
-    },
-    'Yampa': {
-        'streamflow_col': 'Yampa',
-        'outflow_id': 'yampa_end',
-        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
-        'structure_files': {
-            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_ym.txt',
-            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_ym.txt',
-            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_ym.txt'
+        'Yampa': {
+            'streamflow_col': 'Yampa',
+            'outflow_id': 'yampa_end',
+            'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
+            'structure_files': {
+                'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_ym.txt',
+                'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_ym.txt',
+                'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_ym.txt'
+            },
+            'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
+            'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
+            'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+            'map_center': {"lat": 40.0, "lon": -106.9},
+            'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
         },
-        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/ym/ym2015B.parquet',
-        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/sdis_white_full.csv',
-        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_wm_ym/div6_districts_wm_ym.geojson',
-        'map_center': {"lat": 40.0, "lon": -106.9},
-        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/BM_hist_xre_data.csv'
-    },
-    'Upper Colorado': {
-        'streamflow_col': 'Upper_Colorado',
-        'outflow_id': 'cm_end',
-        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
-        'structure_files': {
-            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_cm.txt',
-            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_cm.txt',
-            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_cm.txt'
+        'Upper Colorado': {
+            'streamflow_col': 'Upper_Colorado',
+            'outflow_id': 'cm_end',
+            'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
+            'structure_files': {
+                'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_cm.txt',
+                'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_cm.txt',
+                'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_cm.txt'
+            },
+            'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
+            'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/cm_sdis.csv',
+            'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/Div5_districts_cm.geojson',
+            'map_center': {"lat": 39.5, "lon": -106.8},
+            'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/LG_xre_data_hist.csv'
         },
-        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/cm/cm2015B.parquet',
-        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/cm_sdis.csv',
-        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_colorado/Div5_districts_cm.geojson',
-        'map_center': {"lat": 39.5, "lon": -106.8},
-        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/LG_xre_data_hist.csv'
-    },
-    'San Juan & Dolores': {
-        'streamflow_col': 'SanJuan_Dolores',
-        'outflow_id': 'sj_end',
-        'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
-        'structure_files': {
-            'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_sj.txt',
-            'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_sj.txt',
-            'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_sj.txt'
-        },
-        'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
-        'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/sj_sdis.csv',
-        'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/div7_districts_sj.geojson',
-        'map_center': {"lat": 37.5, "lon": -108.5},
-        'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/MR_xre_data_hist.csv'
+        'San Juan & Dolores': {
+            'streamflow_col': 'SanJuan_Dolores',
+            'outflow_id': 'sj_end',
+            'parquet_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
+            'structure_files': {
+                'industry': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/ind_sj.txt',
+                'irrigation': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/irrigation_sj.txt',
+                'municipality': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/mun_sj.txt'
+            },
+            'drought_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/PARQUET_FILES/sj/sj2015B.parquet',
+            'sdis_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/sj_sdis.csv',
+            'districts_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/boundaries_sanjuan/div7_districts_sj.geojson',
+            'map_center': {"lat": 37.5, "lon": -108.5},
+            'reservoir_path': 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/MR_xre_data_hist.csv'
+        }
     }
-}
+
+    STREAMFLOW_PATH = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/HistoricalData_all_basins.csv'
+    streamflow_path = STREAMFLOW_PATH
+    demand_base_path = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/Demand/Demand-IDs'
+else:
 
 
+    # --- Local paths (relative to Shortages/) ---
+    BASIN_CONFIG = {
+        "Gunnison": {
+            "streamflow_col": "Gunnison",
+            "outflow_id": "gunn_end",
+            "parquet_path": "DATA/PARQUET_FILES/gm/gm2015B.parquet",
+            "structure_files": {
+                "industry": "DATA/Demand/Demand-IDs/ind_gm.txt",
+                "irrigation": "DATA/Demand/Demand-IDs/irrigation_gm.txt",
+                "municipality": "DATA/Demand/Demand-IDs/mun_gm.txt"
+            },
+            "reservoir_path": "DATA/EXCEL/BM_hist_xre_data.csv",
+
+            # Drought-map inputs
+            "drought_path": "DATA/PARQUET_FILES/gm/gm2015B.parquet",
+            "sdis_path": "DATA/sdis.csv",
+            "districts_path": "DATA/div4_districts.geojson",
+            "map_center": {"lat": 38.5, "lon": -107.8},
+            "zoom": 7
+        },
+
+        "White": {
+            "streamflow_col": "White",
+            "outflow_id": "white_end",
+            "parquet_path": "DATA/PARQUET_FILES/wm/wm2015B.parquet",
+            "structure_files": {
+                "industry": "DATA/Demand/Demand-IDs/ind_wm.txt",
+                "irrigation": "DATA/Demand/Demand-IDs/irrigation_wm.txt",
+                "municipality": "DATA/Demand/Demand-IDs/mun_wm.txt"
+            },
+            "reservoir_path": "DATA/EXCEL/BM_hist_xre_data.csv",
+
+            # Drought-map inputs
+            "drought_path": "DATA/PARQUET_FILES/wm/wm2015B.parquet",
+            "sdis_path": "DATA/boundaries_wm_ym/sdis_white_full.csv",
+            "districts_path": "DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson",
+            "map_center": {"lat": 39.9, "lon": -107.5},
+            "zoom": 7,
+            "district_mapping": {"43": ["43","44","47","54","55","56","57","58"]}
+        },
+
+        "Yampa": {
+            "streamflow_col": "Yampa",
+            "outflow_id": "yampa_end",
+            "parquet_path": "DATA/PARQUET_FILES/ym/ym2015B.parquet",
+            "structure_files": {
+                "industry": "DATA/Demand/Demand-IDs/ind_ym.txt",
+                "irrigation": "DATA/Demand/Demand-IDs/irrigation_ym.txt",
+                "municipality": "DATA/Demand/Demand-IDs/mun_ym.txt"
+            },
+            "reservoir_path": "DATA/EXCEL/BM_hist_xre_data.csv",
+
+            # Drought-map inputs
+            "drought_path": "DATA/PARQUET_FILES/ym/ym2015B.parquet",
+            "sdis_path": "DATA/boundaries_wm_ym/sdis_white_full.csv",
+            "districts_path": "DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson",
+            "map_center": {"lat": 40.0, "lon": -106.9},
+            "zoom": 7,
+            "district_mapping": {"44": ["43","44","47","54","55","56","57","58"]}
+        },
+
+        "Upper Colorado": {
+            "streamflow_col": "Upper_Colorado",
+            "outflow_id": "cm_end",
+            "parquet_path": "DATA/PARQUET_FILES/cm/cm2015B.parquet",
+            "structure_files": {
+                "industry": "DATA/Demand/Demand-IDs/ind_cm.txt",
+                "irrigation": "DATA/Demand/Demand-IDs/irrigation_cm.txt",
+                "municipality": "DATA/Demand/Demand-IDs/mun_cm.txt"
+            },
+            "reservoir_path": "DATA/EXCEL/LG_xre_data_hist.csv",
+
+            # Drought-map inputs
+            "drought_path": "DATA/PARQUET_FILES/cm/cm2015B.parquet",
+            "sdis_path": "DATA/boundaries_colorado/cm_sdis.csv",
+            "districts_path": "DATA/boundaries_colorado/Div5_districts_cm.geojson",
+            "map_center": {"lat": 39.5, "lon": -106.8},
+            "zoom": 7,
+            "crosswalk_path": "DATA/boundaries_colorado/cm_crosswalk.csv"
+        },
+
+        "San Juan & Dolores": {
+            "streamflow_col": "SanJuan_Dolores",
+            "outflow_id": "sj_end",
+            "parquet_path": "DATA/PARQUET_FILES/sj/sj2015B.parquet",
+            "structure_files": {
+                "industry": "DATA/Demand/Demand-IDs/ind_sj.txt",
+                "irrigation": "DATA/Demand/Demand-IDs/irrigation_sj.txt",
+                "municipality": "DATA/Demand/Demand-IDs/mun_sj.txt"
+            },
+            "reservoir_path": "DATA/EXCEL/MR_xre_data_hist.csv",
+
+            # Drought-map inputs
+            "drought_path": "DATA/PARQUET_FILES/sj/sj2015B.parquet",
+            "sdis_path": "DATA/boundaries_sanjuan/sj_sdis.csv",
+            "districts_path": "DATA/boundaries_sanjuan/div7_districts_sj.geojson",
+            "map_center": {"lat": 37.5, "lon": -108.5},
+            "zoom": 7,
+            "crosswalk_path": "DATA/boundaries_sanjuan/sj_crosswalk.csv"
+        }
+    }
+
+    # Shared paths still used elsewhere in your code
+    STREAMFLOW_PATH = "DATA/EXCEL/HistoricalData_all_basins.csv"
+    streamflow_path = STREAMFLOW_PATH
+    demand_base_path = "DATA/Demand/Demand-IDs"
+
+    # --- Local paths ---
+    # BASIN_CONFIG = {
+    #     'Gunnison': {
+    #         'streamflow_col': 'Gunnison',
+    #         'outflow_id': 'gunn_end',
+    #         'parquet_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
+    #         'structure_files': {
+    #             'industry': 'DATA/Demand/Demand-IDs/ind_gm.txt',
+    #             'irrigation': 'DATA/Demand/Demand-IDs/irrigation_gm.txt',
+    #             'municipality': 'DATA/Demand/Demand-IDs/mun_gm.txt'
+    #         },
+    #         'drought_path': 'DATA/PARQUET_FILES/gm/gm2015B.parquet',
+    #         'sdis_path': 'DATA/sdis.csv',
+    #         'districts_path': 'DATA/div4_districts.geojson',
+    #         'map_center': {"lat": 38.5, "lon": -107.8},
+    #         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+    #     },
+    #     'White': {
+    #         'streamflow_col': 'White',
+    #         'outflow_id': 'white_end',
+    #         'parquet_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
+    #         'structure_files': {
+    #             'industry': 'DATA/Demand/Demand-IDs/ind_wm.txt',
+    #             'irrigation': 'DATA/Demand/Demand-IDs/irrigation_wm.txt',
+    #             'municipality': 'DATA/Demand/Demand-IDs/mun_wm.txt'
+    #         },
+    #         'drought_path': 'DATA/PARQUET_FILES/wm/wm2015B.parquet',
+    #         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
+    #         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+    #         'map_center': {"lat": 39.9, "lon": -107.5},
+    #         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+    #     },
+    #     'Yampa': {
+    #         'streamflow_col': 'Yampa',
+    #         'outflow_id': 'yampa_end',
+    #         'parquet_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
+    #         'structure_files': {
+    #             'industry': 'DATA/Demand/Demand-IDs/ind_ym.txt',
+    #             'irrigation': 'DATA/Demand/Demand-IDs/irrigation_ym.txt',
+    #             'municipality': 'DATA/Demand/Demand-IDs/mun_ym.txt'
+    #         },
+    #         'drought_path': 'DATA/PARQUET_FILES/ym/ym2015B.parquet',
+    #         'sdis_path': 'DATA/boundaries_wm_ym/sdis_white_full.csv',
+    #         'districts_path': 'DATA/boundaries_wm_ym/div6_districts_wm_ym.geojson',
+    #         'map_center': {"lat": 40.0, "lon": -106.9},
+    #         'reservoir_path': 'DATA/EXCEL/BM_hist_xre_data.csv'
+    #     },
+    #     'Upper Colorado': {
+    #         'streamflow_col': 'Upper_Colorado',
+    #         'outflow_id': 'cm_end',
+    #         'parquet_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
+    #         'structure_files': {
+    #             'industry': 'DATA/Demand/Demand-IDs/ind_cm.txt',
+    #             'irrigation': 'DATA/Demand/Demand-IDs/irrigation_cm.txt',
+    #             'municipality': 'DATA/Demand/Demand-IDs/mun_cm.txt'
+    #         },
+    #         'drought_path': 'DATA/PARQUET_FILES/cm/cm2015B.parquet',
+    #         'sdis_path': 'DATA/boundaries_colorado/cm_sdis.csv',
+    #         'districts_path': 'DATA/boundaries_colorado/Div5_districts_cm.geojson',
+    #         'map_center': {"lat": 39.5, "lon": -106.8},
+    #         'reservoir_path': 'DATA/EXCEL/LG_xre_data_hist.csv'
+    #     },
+    #     'San Juan & Dolores': {
+    #         'streamflow_col': 'SanJuan_Dolores',
+    #         'outflow_id': 'sj_end',
+    #         'parquet_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
+    #         'structure_files': {
+    #             'industry': 'DATA/Demand/Demand-IDs/ind_sj.txt',
+    #             'irrigation': 'DATA/Demand/Demand-IDs/irrigation_sj.txt',
+    #             'municipality': 'DATA/Demand/Demand-IDs/mun_sj.txt'
+    #         },
+    #         'drought_path': 'DATA/PARQUET_FILES/sj/sj2015B.parquet',
+    #         'sdis_path': 'DATA/boundaries_sanjuan/sj_sdis.csv',
+    #         'districts_path': 'DATA/boundaries_sanjuan/div7_districts_sj.geojson',
+    #         'map_center': {"lat": 37.5, "lon": -108.5},
+    #         'reservoir_path': 'DATA/EXCEL/MR_xre_data_hist.csv'
+    #     }
+    # }
+
+    # STREAMFLOW_PATH = 'DATA/EXCEL/HistoricalData_all_basins.csv'
+    # streamflow_path = STREAMFLOW_PATH
+    # demand_base_path = 'DATA/Demand/Demand-IDs'
 ####################################################################################################################################################################################################################################################################################################
 ##################################################################################################################################################################################################################################################################################################
 
-# Path to the full streamflow dataset
-# STREAMFLOW_PATH = 'DATA/EXCEL/HistoricalData_all_basins.csv'
+# # Path to the full streamflow dataset
+# # STREAMFLOW_PATH = 'DATA/EXCEL/HistoricalData_all_basins.csv'
 
-STREAMFLOW_PATH = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/HistoricalData_all_basins.csv'
+# STREAMFLOW_PATH = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/HistoricalData_all_basins.csv'
 
 def streamflow(basin: str, path: str = STREAMFLOW_PATH) -> pd.DataFrame:
     """Loads and processes streamflow data for the selected basin."""
@@ -277,12 +570,101 @@ def streamflow_fig(selected_year: int = None, basin: str = "Gunnison") -> go.Fig
 
 
 
-# --- File paths ---
-# streamflow_path = 'DATA/EXCEL/HistoricalData_all_basins.csv'
-# demand_base_path = 'DATA/Demand/Demand-IDs'
+# # # --- File paths ---
+# # # streamflow_path = 'DATA/EXCEL/HistoricalData_all_basins.csv'
+# # # demand_base_path = 'DATA/Demand/Demand-IDs'
 
-streamflow_path = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/HistoricalData_all_basins.csv'
-demand_base_path = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/Demand/Demand-IDs'
+# # streamflow_path = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/EXCEL/HistoricalData_all_basins.csv'
+# # demand_base_path = 'https://raw.githubusercontent.com/WillemPoelma/colorado_river_DATA/main/Demand/Demand-IDs'
+
+# # --- Data loaders ---
+# def streamflow(basin, path=streamflow_path):
+#     col = BASIN_CONFIG[basin]['streamflow_col']
+#     df = pd.read_csv(path, sep=';', usecols=['Year', col])
+#     df['Year'] = pd.to_datetime(df['Year'], format='%Y', errors='coerce')
+#     df = df.set_index('Year').rename(columns={col: 'annual'})
+#     return df
+
+# def statemod(path):
+#     colnames = [
+#         'structure_name', 'structure_id', 'river_id', 'year', 'month',
+#         'demand_total', 'demand_cu', 'supply_total',
+#         'shortage_total', 'shortage_cu', 'station_balance_river_outflow', 'water_use_cu'
+#     ]
+#     df = pd.read_parquet(path, columns=colnames)
+#     df['structure_id'] = df['structure_id'].astype(str).str.replace('_D', '', regex=False).str.replace('_I', '', regex=False)
+#     df['month'] = df['month'].astype(str)
+#     df['year'] = df['year'].astype(int)
+#     return df[df['month'] == 'TOT'].copy()
+
+# def load_structure_ids(basin, base_path=demand_base_path):
+#     files = BASIN_CONFIG[basin]['structure_files']
+#     dfs = {k: pd.read_csv(f"{base_path}/{v}", header=None, sep=r'\s+') for k, v in files.items()}
+#     return (
+#         set(dfs['industry'].iloc[:, 0].astype(str)),
+#         set(dfs['irrigation'].iloc[:, 0].astype(str)),
+#         set(dfs['municipality'].iloc[:, 0].astype(str))
+#     )
+
+# # --- Generalized Sankey Generator ---
+# def make_sankey_fig(year, basin):
+#     if basin not in BASIN_CONFIG:
+#         raise ValueError(f"Basin '{basin}' not recognized.")
+
+#     # Load data
+#     inflow_df = streamflow(basin)
+#     df_annual = statemod(BASIN_CONFIG[basin]['parquet_path'])
+#     ind_set, irr_set, mun_set = load_structure_ids(basin)
+
+#     # Filter year
+#     df_year = df_annual[df_annual['year'] == int(year)].copy()
+#     if df_year.empty:
+#         return go.Figure().update_layout(title_text=f"No Sankey data available for {basin} in {year}")
+
+#     # Inflow
+#     inflow = inflow_df.loc[inflow_df.index.year == int(year), 'annual'].sum()
+#     if pd.isna(inflow) or inflow == 0:
+#         return go.Figure().update_layout(title_text=f"No inflow data for {basin} in {year}")
+
+#     # Outflow
+#     outflow_id = BASIN_CONFIG[basin]['outflow_id']
+#     outflow_raw = df_year[df_year['river_id'] == outflow_id]['station_balance_river_outflow'].sum()
+#     outflow = float(pd.to_numeric(outflow_raw, errors='coerce'))
+
+#     # Water use
+#     df_year['structure_id'] = df_year['structure_id'].astype(str)
+#     df_year['water_use_cu'] = pd.to_numeric(df_year['water_use_cu'], errors='coerce')
+
+#     industry = df_year[df_year['structure_id'].isin(ind_set)]['water_use_cu'].sum()
+#     irrigation = df_year[df_year['structure_id'].isin(irr_set)]['water_use_cu'].sum()
+#     municipality = df_year[df_year['structure_id'].isin(mun_set)]['water_use_cu'].sum()
+#     other = max(0, inflow - (industry + irrigation + municipality + outflow))
+
+#     values = [industry, irrigation, municipality, other, outflow]
+#     values = [0 if pd.isna(v) else v for v in values]
+
+#     if sum(values) == 0:
+#         return go.Figure().update_layout(title_text=f"No Sankey data available for {basin} in {year}")
+
+#     labels = ["Total Inflow", "Industry", "Irrigation", "Municipality", "Other", "Outflow"]
+#     sources = [0, 0, 0, 0, 0]
+#     targets = [1, 2, 3, 4, 5]
+
+#     fig = go.Figure(go.Sankey(
+#         node=dict(label=labels),
+#         link=dict(source=sources, target=targets, value=values)
+#     ))
+
+#     fig.update_layout(
+#         title_text=f"Water Flow in {basin} Basin ({year})",
+#         font_size=12,
+#         height=400,
+#         margin=dict(l=30, r=30, t=40, b=30)
+#     )
+#     return fig
+
+
+
 
 # --- Data loaders ---
 def streamflow(basin, path=streamflow_path):
@@ -299,14 +681,20 @@ def statemod(path):
         'shortage_total', 'shortage_cu', 'station_balance_river_outflow', 'water_use_cu'
     ]
     df = pd.read_parquet(path, columns=colnames)
-    df['structure_id'] = df['structure_id'].astype(str).str.replace('_D', '', regex=False).str.replace('_I', '', regex=False)
+    df['structure_id'] = (
+        df['structure_id']
+        .astype(str)
+        .str.replace('_D', '', regex=False)
+        .str.replace('_I', '', regex=False)
+    )
     df['month'] = df['month'].astype(str)
     df['year'] = df['year'].astype(int)
     return df[df['month'] == 'TOT'].copy()
 
-def load_structure_ids(basin, base_path=demand_base_path):
+def load_structure_ids(basin):
+    """Load industry, irrigation, municipality IDs for the given basin."""
     files = BASIN_CONFIG[basin]['structure_files']
-    dfs = {k: pd.read_csv(f"{base_path}/{v}", header=None, sep=r'\s+') for k, v in files.items()}
+    dfs = {k: pd.read_csv(v, header=None, sep=r'\s+') for k, v in files.items()}
     return (
         set(dfs['industry'].iloc[:, 0].astype(str)),
         set(dfs['irrigation'].iloc[:, 0].astype(str)),
@@ -322,6 +710,12 @@ def make_sankey_fig(year, basin):
     inflow_df = streamflow(basin)
     df_annual = statemod(BASIN_CONFIG[basin]['parquet_path'])
     ind_set, irr_set, mun_set = load_structure_ids(basin)
+
+    # Debug prints (optional)
+    print(f"[DEBUG] Basin={basin}, Year={year}")
+    print("Industry IDs sample:", list(ind_set)[:5])
+    print("Irrigation IDs sample:", list(irr_set)[:5])
+    print("Municipality IDs sample:", list(mun_set)[:5])
 
     # Filter year
     df_year = df_annual[df_annual['year'] == int(year)].copy()
@@ -369,6 +763,7 @@ def make_sankey_fig(year, basin):
         margin=dict(l=30, r=30, t=40, b=30)
     )
     return fig
+
 
 ####################################################################################################################################################################################################################################################################################################
 ##################################################################################################################################################################################################################################################################################################
@@ -638,93 +1033,483 @@ def sector_water_use_shortage_plot(year, basin):
 
 #     return fig
 
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import json
+from pyproj import Transformer
+
+# ---------------- Gunnison ----------------
+def plot_drought_map_gunnison(year, basin="Gunnison"):
+    cfg = BASIN_CONFIG[basin]
+    drought_df = pd.read_parquet(cfg["drought_path"])
+    drought_df["year"] = pd.to_numeric(drought_df["year"], errors="coerce")
+    drought_df["shortage_cu"] = pd.to_numeric(drought_df["shortage_cu"], errors="coerce").fillna(0)
+    drought_df["structure_id"] = drought_df["structure_id"].astype(str).str.extract(r"(\d+)", expand=False)
+
+    sdis_df = pd.read_csv(cfg["sdis_path"])
+    sdis_df["wdid"] = sdis_df["wdid"].astype(str).str.extract(r"(\d+)", expand=False)
+    sdis_df["DIST"] = sdis_df["DIST"].astype(str).str.strip()
+
+    drought_df = drought_df.merge(sdis_df[["wdid", "DIST"]], left_on="structure_id", right_on="wdid", how="left")
+    drought_year = drought_df[drought_df["year"] == int(year)].copy()
+    if drought_year.empty:
+        return go.Figure().update_layout(title_text=f"No drought data available for {basin} in {year}")
+
+    district_shortage = drought_year.groupby("DIST", observed=False)["shortage_cu"].sum().reset_index()
+    with open(cfg["districts_path"], "r", encoding="utf-8") as f:
+        geojson_data = json.load(f)
+
+    district_shortage["DIST"] = district_shortage["DIST"].astype(float).astype(int).astype(str)
+    fig = px.choropleth_mapbox(
+        district_shortage, geojson=geojson_data, locations="DIST",
+        featureidkey="properties.DIST", color="shortage_cu",
+        color_continuous_scale="YlOrRd", mapbox_style="carto-positron",
+        zoom=cfg.get("zoom", 7), center=cfg.get("map_center", {"lat": 38.5, "lon": -107.8}),
+        opacity=0.7, hover_name="DIST", hover_data={"shortage_cu": True}
+    )
+    fig.update_layout(title=f"District-Level Drought Map – {basin} Basin ({year})", margin={"r":0,"t":30,"l":0,"b":0})
+    
+
+    return fig
+
+# ---------------- White ----------------
 
 
-def plot_drought_map(year, basin):
-    if basin not in BASIN_CONFIG:
-        raise ValueError(f"Basin '{basin}' not recognized.")
-
-    config = BASIN_CONFIG[basin]
+def plot_drought_map_white(year, basin="White"):
+    cfg = BASIN_CONFIG[basin]
 
     # --- Load drought data ---
-    drought_df = pd.read_parquet(config['drought_path'])
+    drought_df = pd.read_parquet(cfg["drought_path"])
     drought_df["year"] = pd.to_numeric(drought_df["year"], errors="coerce")
     drought_df["shortage_cu"] = pd.to_numeric(drought_df["shortage_cu"], errors="coerce").fillna(0)
     drought_df["structure_id"] = drought_df["structure_id"].astype(str).str.strip()
     drought_df["structure_id_clean"] = drought_df["structure_id"].str.replace(r'_[A-Z]+$', '', regex=True)
 
-    # --- Load structure-to-district mapping ---
-    sdis_df = pd.read_csv(config['sdis_path'])
-    sdis_df.columns = sdis_df.columns.str.strip().str.lower()
-
-    # Detect structure ID column
-    wdid_col = next((col for col in sdis_df.columns if col in ['wdid', 'sw_wdid1', 'structure_id', 'id']), None)
-    if wdid_col is None:
-        raise ValueError(f"No structure ID column found in {config['sdis_path']}. Available columns: {sdis_df.columns.tolist()}")
-
-    sdis_df[wdid_col] = sdis_df[wdid_col].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
-    sdis_df["wdid_clean"] = sdis_df[wdid_col].str.replace(r'_[A-Z]+$', '', regex=True)
-
-    # Detect district column in sdis_df
-    dist_col_sdis = next((col for col in sdis_df.columns if col in ['dist', 'district', 'district_id']), None)
-    if dist_col_sdis is None:
-        raise ValueError(f"No district column found in {config['sdis_path']}. Available columns: {sdis_df.columns.tolist()}")
-
-    sdis_df[dist_col_sdis] = sdis_df[dist_col_sdis].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
+    # --- Load SDIS mapping ---
+    sdis_df = pd.read_csv(cfg["sdis_path"])
+    sdis_df["wdid"] = sdis_df["wdid"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True)
+    sdis_df["DIST"] = pd.to_numeric(sdis_df["DIST"], errors="coerce").astype("Int64")
+    sdis_df["wdid_clean"] = sdis_df["wdid"]
 
     # --- Merge drought data with district info ---
     drought_df = drought_df.merge(
-        sdis_df[["wdid_clean", dist_col_sdis]],
+        sdis_df[["wdid_clean", "DIST"]],
         left_on="structure_id_clean",
         right_on="wdid_clean",
         how="left"
     )
 
-    drought_df[dist_col_sdis] = drought_df[dist_col_sdis].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
-
     # --- Filter for selected year ---
     drought_year = drought_df[drought_df["year"] == int(year)].copy()
     if drought_year.empty:
-        return go.Figure().update_layout(title_text=f"No drought data available for {basin} in {year}")
+        import plotly.graph_objects as go
+        return go.Figure().update_layout(title_text=f"No drought data available for {basin} in {year}"), pd.DataFrame()
 
     # --- Aggregate shortage by district ---
     district_shortage = (
-        drought_year.groupby(dist_col_sdis, observed=False)["shortage_cu"]
+        drought_year.groupby("DIST", observed=False)["shortage_cu"]
         .sum()
         .reset_index()
     )
+    district_shortage = district_shortage.dropna(subset=["DIST"])
+    district_shortage["DIST"] = district_shortage["DIST"].astype(int)
 
-    # --- Load district boundaries (GeoJSON) ---
-    resp = requests.get(config['districts_path'])
-    geojson_data = resp.json()
+    # --- Load and reproject GeoJSON ---
+    with open(cfg["districts_path"], "r", encoding="utf-8") as f:
+        geojson_data = json.load(f)
 
-    # --- Plot the map ---
+    transformer = Transformer.from_crs("EPSG:26913", "EPSG:4326", always_xy=True)
+
+    for feat in geojson_data["features"]:
+        geom = feat["geometry"]
+        if geom["type"] == "Polygon":
+            geom["coordinates"] = [
+                [transformer.transform(x, y) for x, y in ring]
+                for ring in geom["coordinates"]
+            ]
+        elif geom["type"] == "MultiPolygon":
+            geom["coordinates"] = [
+                [[transformer.transform(x, y) for x, y in ring] for ring in poly]
+                for poly in geom["coordinates"]
+            ]
+
+    # --- Debug IDs ---
+    geo_ids = {feat["properties"]["DIST"] for feat in geojson_data["features"]}
+    print(f"[DEBUG] White GeoJSON DIST IDs: {sorted(geo_ids)}")
+    print(f"[DEBUG] White drought DataFrame DIST IDs: {district_shortage['DIST'].unique()}")
+
+    # --- Plot ---
     fig = px.choropleth_mapbox(
         district_shortage,
         geojson=geojson_data,
-        locations=dist_col_sdis,
-        featureidkey=f"properties.{dist_col_sdis}",
+        locations="DIST",
+        featureidkey="properties.DIST",
         color="shortage_cu",
         color_continuous_scale="YlOrRd",
         mapbox_style="carto-positron",
-        zoom=7,
-        center=config['map_center'],
+        zoom=cfg.get("zoom", 7),
+        center=cfg.get("map_center", {"lat": 40.0, "lon": -107.8}),
         opacity=0.7,
-        hover_name=dist_col_sdis,
+        hover_name="DIST",
         hover_data={"shortage_cu": True}
     )
 
     fig.update_layout(
-        title=f"District-Level Drought Map in {basin} Basin ({year})",
-        margin={"r": 0, "t": 30, "l": 0, "b": 0},
-        font=dict(family="Arial", size=12)
+        title=f"District-Level Drought Map – {basin} Basin ({year})",
+        margin={"r": 0, "t": 30, "l": 0, "b": 0}
     )
 
     return fig
 
 
 
-####################################################################################################################################################################################################################################################################################################
+
+
+# ---------------- Yampa ----------------
+def plot_drought_map_yampa(year, basin="Yampa"):
+
+    cfg = BASIN_CONFIG[basin]
+
+    # --- Load drought data ---
+    drought_df = pd.read_parquet(cfg["drought_path"])
+    drought_df["year"] = pd.to_numeric(drought_df["year"], errors="coerce")
+    drought_df["shortage_cu"] = pd.to_numeric(drought_df["shortage_cu"], errors="coerce").fillna(0)
+    drought_df["structure_id"] = drought_df["structure_id"].astype(str).str.strip()
+    drought_df["structure_id_clean"] = drought_df["structure_id"].str.replace(r'_[A-Z]+$', '', regex=True)
+
+    # --- Load SDIS mapping ---
+    sdis_df = pd.read_csv(cfg["sdis_path"])
+    sdis_df["wdid"] = (
+        sdis_df["wdid"]
+        .astype(str)
+        .str.strip()
+        .str.replace(r"\.0$", "", regex=True)
+    )
+    sdis_df["DIST"] = pd.to_numeric(sdis_df["DIST"], errors="coerce").astype("Int64")
+    sdis_df["wdid_clean"] = sdis_df["wdid"]
+
+    # --- Merge drought data with district info ---
+    drought_df = drought_df.merge(
+        sdis_df[["wdid_clean", "DIST"]],
+        left_on="structure_id_clean",
+        right_on="wdid_clean",
+        how="left"
+    )
+
+    # --- Filter for selected year ---
+    drought_year = drought_df[drought_df["year"] == int(year)].copy()
+    if drought_year.empty:
+        import plotly.graph_objects as go
+        return go.Figure().update_layout(
+            title_text=f"No drought data available for {basin} in {year}"
+        ), pd.DataFrame()
+
+    # --- Aggregate shortage by district ---
+    district_shortage = (
+        drought_year.groupby("DIST", observed=False)["shortage_cu"]
+        .sum()
+        .reset_index()
+    )
+
+    # Drop NaNs and cast DIST to int
+    district_shortage = district_shortage.dropna(subset=["DIST"])
+    district_shortage["DIST"] = district_shortage["DIST"].astype(int)
+
+    # --- Load district boundaries (GeoJSON) ---
+    with open(cfg["districts_path"], "r", encoding="utf-8") as f:
+        geojson_data = json.load(f)
+
+    # --- Reproject coordinates if needed (UTM → WGS84) ---
+    transformer = Transformer.from_crs("EPSG:26913", "EPSG:4326", always_xy=True)
+
+    for feat in geojson_data["features"]:
+        geom = feat["geometry"]
+        if geom["type"] == "Polygon":
+            geom["coordinates"] = [
+                [transformer.transform(x, y) for x, y in ring]
+                for ring in geom["coordinates"]
+            ]
+        elif geom["type"] == "MultiPolygon":
+            geom["coordinates"] = [
+                [[transformer.transform(x, y) for x, y in ring] for ring in poly]
+                for poly in geom["coordinates"]
+            ]
+
+    # --- Debug: compare IDs ---
+    geo_ids = {feat["properties"]["DIST"] for feat in geojson_data["features"]}
+    print(f"[DEBUG] Yampa GeoJSON DIST IDs: {sorted(geo_ids)}")
+    print(f"[DEBUG] Yampa drought DataFrame DIST IDs: {district_shortage['DIST'].unique()}")
+
+    # --- Plot the map ---
+    fig = px.choropleth_mapbox(
+        district_shortage,
+        geojson=geojson_data,
+        locations="DIST",
+        featureidkey="properties.DIST",  # must match GeoJSON property name
+        color="shortage_cu",
+        color_continuous_scale="YlOrRd",
+        mapbox_style="carto-positron",
+        zoom=cfg.get("zoom", 7),
+        center=cfg.get("map_center", {"lat": 40.5, "lon": -107.0}),
+        opacity=0.7,
+        hover_name="DIST",
+        hover_data={"shortage_cu": True}
+    )
+
+    fig.update_layout(
+        title=f"District-Level Drought Map – {basin} Basin ({year})",
+        margin={"r": 0, "t": 30, "l": 0, "b": 0}
+    )
+
+    return fig
+
+
+
+# ---------------- Upper Colorado ----------------
+
+def plot_drought_map_uppercolorado(year, basin="Upper Colorado"):
+
+    cfg = BASIN_CONFIG[basin]
+
+    # --- Load drought data ---
+    drought_df = pd.read_parquet(cfg["drought_path"])
+    drought_df["year"] = pd.to_numeric(drought_df["year"], errors="coerce")
+    drought_df["shortage_cu"] = pd.to_numeric(drought_df["shortage_cu"], errors="coerce").fillna(0)
+    drought_df["structure_id"] = drought_df["structure_id"].astype(str).str.strip()
+    drought_df["structure_id_clean"] = drought_df["structure_id"].str.replace(r'_[A-Z]+$', '', regex=True)
+
+    print("[DEBUG] Sample structure_id_clean values:", drought_df["structure_id_clean"].dropna().unique()[:10])
+
+    # --- Load SDIS mapping (semicolon separated) ---
+    try:
+        sdis_df = pd.read_csv(cfg["sdis_path"], sep=";", dtype=str, encoding="utf-8-sig")
+        print("[INFO] Successfully read SDIS CSV with sep=';' and utf-8-sig")
+    except Exception as e:
+        print("[ERROR] Could not read SDIS CSV:", e)
+        return None, pd.DataFrame()
+
+    # Keep only SW_WDID1 and DIST
+    if not {"SW_WDID1", "DIST"}.issubset(sdis_df.columns):
+        print("[ERROR] Required columns SW_WDID1 or DIST not found in SDIS CSV")
+        print("[DEBUG] Columns present:", sdis_df.columns.tolist())
+        return None, pd.DataFrame()
+
+    sdis_df = sdis_df[["SW_WDID1", "DIST"]].copy()
+
+    # Clean DIST
+    sdis_df["DIST"] = (
+        sdis_df["DIST"]
+        .astype(str)
+        .str.strip()
+        .str.replace(r"\.0$", "", regex=True)
+        .replace({"nan": None, "NA": None, "": None})
+    )
+
+    # Clean SW_WDID1
+    sdis_df["SW_WDID1"] = (
+        sdis_df["SW_WDID1"]
+        .astype(str)
+        .str.strip()
+        .str.replace('"', '')
+        .str.replace(r"\.0$", "", regex=True)
+        .replace({"nan": None, "NA": None, "": None})
+    )
+    sdis_df["wdid_clean"] = sdis_df["SW_WDID1"]
+
+    print("[DEBUG] Sample SW_WDID1 cleaned:", sdis_df["wdid_clean"].dropna().unique()[:10])
+    print("[DEBUG] Sample DIST cleaned:", sdis_df["DIST"].dropna().unique()[:10])
+
+    # --- Merge drought data with district info ---
+    drought_df = drought_df.merge(
+        sdis_df[["wdid_clean", "DIST"]],
+        left_on="structure_id_clean",
+        right_on="wdid_clean",
+        how="left"
+    )
+    assigned = drought_df["DIST"].notna().sum()
+    print("[DEBUG] After merge: rows with DIST assigned:", assigned)
+
+    # --- Filter for selected year ---
+    drought_year = drought_df[drought_df["year"] == int(year)].copy()
+    if drought_year.empty:
+        import plotly.graph_objects as go
+        return go.Figure().update_layout(
+            title_text=f"No drought data available for {basin} in {year}"
+        ), pd.DataFrame()
+
+    # --- Aggregate shortage by district ---
+    district_shortage = (
+        drought_year.groupby("DIST", observed=False)["shortage_cu"]
+        .sum()
+        .reset_index()
+    )
+    district_shortage["DIST"] = (
+        district_shortage["DIST"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True)
+    )
+
+    print("[DEBUG] district_shortage sample:\n", district_shortage.head())
+
+    # --- Load district boundaries (GeoJSON) ---
+    with open(cfg["districts_path"], "r", encoding="utf-8") as f:
+        geojson_data = json.load(f)
+
+    # --- Reproject coordinates (UTM Zone 13N → WGS84) ---
+    transformer = Transformer.from_crs("EPSG:26913", "EPSG:4326", always_xy=True)
+    for feat in geojson_data["features"]:
+        geom = feat["geometry"]
+        feat["properties"]["DIST"] = str(feat["properties"]["DIST"]).strip().replace(".0", "")
+        if geom["type"] == "Polygon":
+            geom["coordinates"] = [
+                [transformer.transform(x, y) for x, y in ring]
+                for ring in geom["coordinates"]
+            ]
+        elif geom["type"] == "MultiPolygon":
+            geom["coordinates"] = [
+                [[transformer.transform(x, y) for x, y in ring] for ring in poly]
+                for poly in geom["coordinates"]
+            ]
+
+    # --- Ensure all districts appear (fill missing with 0) ---
+    geo_ids = {feat["properties"]["DIST"] for feat in geojson_data["features"]}
+    drought_ids = set(district_shortage["DIST"])
+    missing_ids = geo_ids - drought_ids
+
+    if missing_ids:
+        print("[INFO] Adding missing districts with shortage=0:", missing_ids)
+        district_shortage = pd.concat([
+            district_shortage,
+            pd.DataFrame({"DIST": list(missing_ids), "shortage_cu": [0]*len(missing_ids)})
+        ], ignore_index=True)
+
+    # --- Debug: compare IDs ---
+    print(f"[DEBUG] Upper Colorado GeoJSON DIST IDs: {sorted(geo_ids)}")
+    print(f"[DEBUG] Upper Colorado drought DataFrame DIST IDs: {district_shortage['DIST'].unique()}")
+
+    # --- Plot the map ---
+    fig = px.choropleth_mapbox(
+        district_shortage,
+        geojson=geojson_data,
+        locations="DIST",
+        featureidkey="properties.DIST",
+        color="shortage_cu",
+        color_continuous_scale="YlOrRd",
+        mapbox_style="carto-positron",
+        zoom=cfg.get("zoom", 7),
+        center=cfg.get("map_center", {"lat": 39.5, "lon": -106.8}),
+        opacity=0.7,
+        hover_name="DIST",
+        hover_data={"shortage_cu": True}
+    )
+
+    fig.update_layout(
+        title=f"District-Level Drought Map – {basin} Basin ({year})",
+        margin={"r": 0, "t": 30, "l": 0, "b": 0}
+    )
+
+    return fig
+
+
+# ---------------- San Juan & Dolores ----------------
+def plot_drought_map_sanjuan(year, basin="San Juan & Dolores"):
+
+    cfg = BASIN_CONFIG[basin]
+
+    # --- Load drought data ---
+    drought_df = pd.read_parquet(cfg["drought_path"])
+    drought_df["year"] = pd.to_numeric(drought_df["year"], errors="coerce")
+    drought_df["shortage_cu"] = pd.to_numeric(drought_df["shortage_cu"], errors="coerce").fillna(0)
+    drought_df["structure_id"] = drought_df["structure_id"].astype(str).str.strip()
+    drought_df["structure_id_clean"] = drought_df["structure_id"].str.replace(r'_[A-Z]+$', '', regex=True)
+
+    # --- Load structure-to-district mapping ---
+    sdis_df = pd.read_csv(cfg["sdis_path"])
+    sdis_df["wdid"] = (
+        sdis_df["wdid"]
+        .astype(str)
+        .str.strip()
+        .str.replace(r"\.0$", "", regex=True)
+    )
+    sdis_df["DIST"] = pd.to_numeric(sdis_df["DIST"], errors="coerce").astype("Int64")
+    sdis_df["wdid_clean"] = sdis_df["wdid"]
+
+    # --- Merge drought data with district info ---
+    drought_df = drought_df.merge(
+        sdis_df[["wdid_clean", "DIST"]],
+        left_on="structure_id_clean",
+        right_on="wdid_clean",
+        how="left"
+    )
+
+    # --- Filter for selected year ---
+    drought_year = drought_df[drought_df["year"] == int(year)].copy()
+    if drought_year.empty:
+        import plotly.graph_objects as go
+        return go.Figure().update_layout(
+            title_text=f"No drought data available for {basin} in {year}"
+        ), pd.DataFrame()
+
+    # --- Aggregate shortage by district ---
+    district_shortage = (
+        drought_year.groupby("DIST", observed=False)["shortage_cu"]
+        .sum()
+        .reset_index()
+    )
+
+    # Drop NaNs and cast DIST to int
+    district_shortage = district_shortage.dropna(subset=["DIST"])
+    district_shortage["DIST"] = district_shortage["DIST"].astype(int)
+
+    # --- Load district boundaries (GeoJSON) ---
+    with open(cfg["districts_path"], "r", encoding="utf-8") as f:
+        geojson_data = json.load(f)
+
+    # --- Reproject coordinates if needed (UTM → WGS84) ---
+    transformer = Transformer.from_crs("EPSG:26913", "EPSG:4326", always_xy=True)
+
+    for feat in geojson_data["features"]:
+        geom = feat["geometry"]
+        if geom["type"] == "Polygon":
+            geom["coordinates"] = [
+                [transformer.transform(x, y) for x, y in ring]
+                for ring in geom["coordinates"]
+            ]
+        elif geom["type"] == "MultiPolygon":
+            geom["coordinates"] = [
+                [[transformer.transform(x, y) for x, y in ring] for ring in poly]
+                for poly in geom["coordinates"]
+            ]
+
+    # --- Debug: compare IDs ---
+    geo_ids = {feat["properties"]["DIST"] for feat in geojson_data["features"]}
+    print(f"[DEBUG] San Juan GeoJSON DIST IDs: {sorted(geo_ids)}")
+    print(f"[DEBUG] San Juan drought DataFrame DIST IDs: {district_shortage['DIST'].unique()}")
+
+    # --- Plot the map ---
+    fig = px.choropleth_mapbox(
+        district_shortage,
+        geojson=geojson_data,
+        locations="DIST",
+        featureidkey="properties.DIST",  # must match GeoJSON property name
+        color="shortage_cu",
+        color_continuous_scale="YlOrRd",
+        mapbox_style="carto-positron",
+        zoom=cfg.get("zoom", 7),
+        center=cfg.get("map_center", {"lat": 37.5, "lon": -108.5}),  # Division 7 center
+        opacity=0.7,
+        hover_name="DIST",
+        hover_data={"shortage_cu": True}
+    )
+
+    fig.update_layout(
+        title=f"District-Level Drought Map – {basin} Basin ({year})",
+        margin={"r": 0, "t": 30, "l": 0, "b": 0}
+    )
+
+    return fig
+
+
+#####################################################################################################################################################################################################################################################################################################
 ##################################################################################################################################################################################################################################################################################################
 
 
@@ -812,18 +1597,87 @@ def plot_storage(year, basin):
 ####################################################################################################################################################################################################################################################################################################
 ##################################################################################################################################################################################################################################################################################################
 
-# --- Loader Dispatcher: get_loader() ---
+# # --- Loader Dispatcher: get_loader() ---
+# def get_loader(district: str) -> dict:
+#     """Returns a dictionary of plotting functions for the selected basin."""
+#     basin_map = {
+#         'gunnison': 'Gunnison',
+#         'white': 'White',
+#         'yampa': 'Yampa',
+#         'uppercolorado': 'Upper Colorado',
+#         'sanjuan': 'San Juan & Dolores'
+#     }
+
+#     basin = basin_map.get(district)
+#     if basin is None:
+#         raise ValueError(f"Unknown district: {district}")
+
+#     return {
+#         'plot_streamflow': lambda year: streamflow_fig(selected_year=year, basin=basin),
+#         'plot_storage': lambda year: plot_storage(year, basin=basin),
+#         'make_sankey_fig': lambda year: make_sankey_fig(year, basin=basin),
+#         'sector_water_use_shortage_plot': lambda year: sector_water_use_shortage_plot(year, basin=basin),
+#         'plot_drought_map': lambda year: plot_drought_map(year, basin=basin)
+#     }
+
+
+# def get_loader(district: str) -> dict:
+#     """Returns a dictionary of plotting functions for the selected basin."""
+#     basin_map = {
+#         'gunnison': 'Gunnison',
+#         'white': 'White',
+#         'yampa': 'Yampa',
+#         'upper colorado': 'Upper Colorado',
+#         'san juan & dolores': 'San Juan & Dolores'
+#     }
+
+#     key = district.strip().lower()
+#     basin = basin_map.get(key)
+#     if basin is None:
+#         raise ValueError(f"Unknown district: {district}")
+
+#     return {
+#         'plot_streamflow': lambda year: streamflow_fig(selected_year=year, basin=basin),
+#         'plot_storage': lambda year: plot_storage(year, basin=basin),
+#         'make_sankey_fig': lambda year: make_sankey_fig(year, basin=basin),
+#         'sector_water_use_shortage_plot': lambda year: sector_water_use_shortage_plot(year, basin=basin),
+#         'plot_drought_map': lambda year: plot_drought_map(year, basin=basin)
+#     }
+
+
+
+def plot_drought_map(year, basin):
+    """Dispatcher that routes to the correct basin-specific drought map function."""
+    if basin == "Gunnison":
+        return plot_drought_map_gunnison(year, basin)
+    elif basin == "White":
+        return plot_drought_map_white(year, basin)
+    elif basin == "Yampa":
+        return plot_drought_map_yampa(year, basin)
+    elif basin == "Upper Colorado":
+        return plot_drought_map_uppercolorado(year, basin)
+    elif basin == "San Juan & Dolores":
+        return plot_drought_map_sanjuan(year, basin)
+    else:
+        raise ValueError(f"Unknown basin: {basin}")
+
+
 def get_loader(district: str) -> dict:
-    """Returns a dictionary of plotting functions for the selected basin."""
+    """
+    Returns a dictionary of plotting functions for the selected basin.
+    Normalizes the district string and maps it to the canonical basin name.
+    """
+
     basin_map = {
         'gunnison': 'Gunnison',
         'white': 'White',
         'yampa': 'Yampa',
-        'uppercolorado': 'Upper Colorado',
-        'sanjuan': 'San Juan & Dolores'
+        'upper colorado': 'Upper Colorado',
+        'san juan & dolores': 'San Juan & Dolores'
     }
 
-    basin = basin_map.get(district)
+    key = district.strip().lower()
+    basin = basin_map.get(key)
     if basin is None:
         raise ValueError(f"Unknown district: {district}")
 
@@ -832,5 +1686,6 @@ def get_loader(district: str) -> dict:
         'plot_storage': lambda year: plot_storage(year, basin=basin),
         'make_sankey_fig': lambda year: make_sankey_fig(year, basin=basin),
         'sector_water_use_shortage_plot': lambda year: sector_water_use_shortage_plot(year, basin=basin),
+        # Calls the dispatcher above, which routes to the correct basin-specific drought map
         'plot_drought_map': lambda year: plot_drought_map(year, basin=basin)
     }
